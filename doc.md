@@ -1,5 +1,5 @@
 ## todo
-
+- make resulotion indepdent  for resp
 
 ## ideas
 - developer has power of the p5js on the plugin building plus the api of pixel-land
@@ -12,3 +12,4 @@
 - main.c.js => plugin client main entry
 - icon.png => a png icon 
 - info.json => a file about the mode [id,title,version,server-url,piority]
+

@@ -1,9 +1,15 @@
-import App from './core/app'
-import PlayerClientMod from './core/mod/core-mods/player/main.c';
+import { PL } from './core/stage/pixel-land';
+import Stage from './core/stage/stage';
 import './style.css'
 
-const app1 = new App("default app");
-app1.init();
-app1.setFulLSize();
-app1._mod?.registerMod("player",PlayerClientMod);
-app1.run();
+window.onload = () => {
+
+    const _canvas = document.querySelector('#stage0');
+    if (_canvas) {
+        const game = new Stage(_canvas);
+        game.init();
+        PL.mods.loadModByUrl('http://localhost:3001/mod/player/client.js');
+        // PL.mods.addMod('player', game);
+ 
+    }
+}

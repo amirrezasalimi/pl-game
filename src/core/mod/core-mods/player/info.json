@@ -1,7 +1,0 @@
-{
-    "name": "Player",
-    "id": "player",
-    "version": "1.0.0",
-    "description": "default player object spawaning in world"
-
-}
