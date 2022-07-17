@@ -1,0 +1,20 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Open Sans;
+}
+*{
+  box-sizing: border-box;
+}
+@import "toastify-js/src/toastify.css";
+
+
+// toast variants
+.toast-success{
+  background: linear-gradient(to right, #00b09b, #96c93d);
+}
+.toast-error{
+  background: linear-gradient(to right, #fa4242, rgb(250, 106, 106));
+}

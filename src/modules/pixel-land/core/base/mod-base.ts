@@ -1,6 +1,6 @@
 abstract class ModBase {
     priority: number = 1;
-    mounted() { }
+    mounted(...args:any) { }
     fixedUpdate() {
         // draw at fixed fps
     }

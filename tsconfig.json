@@ -17,7 +17,8 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "skipLibCheck": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "jsx": "preserve"
 
   },
   "include": ["src"]

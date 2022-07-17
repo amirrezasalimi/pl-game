@@ -2,11 +2,13 @@ import WsHandler from "../network/ws";
 import WsEvent from "../network/ws-event";
 import Camera from "../render/camera";
 import Visiblity from "../render/visibility";
-import Mod from "./mod";
+import Mod from "../mod/mod";
 import { PL } from "./pixel-land";
 import Render from "./render";
 class Stage {
     constructor(canvas: Element) {
+        // @ts-ignore
+        // window.PL = PL;
         PL.canvas_el = canvas;
         const _ctx = (PL.canvas_el as HTMLCanvasElement).getContext('2d');
         if (_ctx)
@@ -37,6 +39,9 @@ class Stage {
 
         PL.render.start();
         PL.ws_handler.start();
+
+        PL.mod = PL.mods.mods;
+        PL.mods.mounted();
 
     }
     onMouseUpdate(e: any) {

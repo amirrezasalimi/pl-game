@@ -18,14 +18,15 @@ class Visiblity {
     }
 
 
-    getDrawDetail(o: { x?: number, y?: number, w?: number, h?: number }) {
+    getDrawDetail(o: { x?: number, y?: number, w?: number, h?: number , r?: number }) {
         return {
             // position
-            x: o.x ? o.x * this.wfactor : this.wfactor,
-            y: o.y ? o.y * this.hfactor : this.hfactor,
+            x: o?.x ? o.x * this.wfactor : this.wfactor,
+            y: o?.y ? o.y * this.hfactor : this.hfactor,
             // size
-            w: o.w ? o.w * this.wfactor : this.wfactor,
-            h: o.h ? o.h * this.hfactor : this.hfactor
+            w: o?.w ? o.w * this.wfactor : this.wfactor,
+            h: o?.h ? o.h * this.hfactor : this.hfactor,
+            r: o?.r ? o.r * this.rfactor : this.rfactor,
         }
     }
     topLeftPosition() {
