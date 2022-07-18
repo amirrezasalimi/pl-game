@@ -95,14 +95,14 @@ export const authInit = () => {
     }
     console.log("auth init");
 
-    services.checkUser().then(user => {
-        console.log(user);
-
-        if (user) {
-            userState.isLogin = true
-            userState.user = user
+    services.checkUser().then(res => {
+        if (res.data.ok) {
+            userStore.setUser(res.data.user)
+            toggleAuth(false)
         }
     }).catch(err => {
+        console.log(err);
+        
         toggleAuth(true)
     })
 }

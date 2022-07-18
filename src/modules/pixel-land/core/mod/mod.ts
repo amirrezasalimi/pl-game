@@ -42,7 +42,14 @@ class Mods {
         this.mods_names.push(name);
 
         const pl_mod = new ModShared(name);
-        await this.mods[name].mounted(pl_mod);
+        const mounted_fn = this.mods[name].mounted;
+        if (typeof mounted_fn === "function") {
+            try{
+                await this.mods[name].mounted(pl_mod);
+            } catch (e) {
+                console.error(`Error mounting mod: ${name}`, e);
+            }
+        }
     }
     async getModsList(): Promise<null | string[]> {
         return new Promise((resolve, reject) => {
@@ -99,6 +106,10 @@ class Mods {
     async loadModByUrl(url: string) {
         try {
             const mod = await import(url);
+
+            if (mod.default) {
+                return mod.default;
+            }
             if (mod.Client) {
                 return mod.Client;
             }

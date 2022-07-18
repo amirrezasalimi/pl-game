@@ -12,7 +12,7 @@ class WsHandler {
             maxAttempts: 2,
             onopen: e => {
                 console.log('WS connected');
-                PL.ws.emitLocal("client:open");
+                PL.ws.emitLocal("client:connect");
             },
             onmessage: e => {
                 try {
@@ -27,7 +27,7 @@ class WsHandler {
             onreconnect: e => console.log('Reconnecting...', e),
             onmaximum: e => console.log('Stop Attempting!', e),
             onclose: e => {
-                PL.ws.emitLocal("client:close");
+                PL.ws.emitLocal("client:disconnect");
             },
             onerror: e => console.log('Error:', e)
         });

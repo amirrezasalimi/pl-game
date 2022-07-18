@@ -1,35 +1,44 @@
+import IWsEventInfo from "../models/ws-event-info";
 import { PL } from "../stage/pixel-land";
 
-interface IEventInfo {
-    origin_id: string; // request id
-    cb: (data: any) => void;
-}
+
 class WsEvent {
-    listeners: { [key: string]: IEventInfo[] } = {};
-    on(origin_id: string, event: string, cb: (data: any) => void) {        
-        console.log('on', origin_id, event);
-        
+    listeners: { [key: string]: IWsEventInfo[] } = {};
+    on(origin_id: string, event: string, cb: (data: any) => void, middleware?: (event: string,data:any) => boolean) {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
         this.listeners[event].push({
             origin_id,
             cb: cb,
+            middleware,
         });
     }
     emitLocal(event: string, data?: any) {
         if (!this.listeners[event]) {
             return;
         }
-        this.listeners[event].forEach(({ cb }) => {
-            cb(data);
+       
+        this.listeners[event].forEach(({ cb, middleware }) => {
+            let canCall = true;
+            if (typeof middleware === "function") {
+                canCall = !middleware(event, data);
+            } else {
+                canCall = true;
+            }
+            canCall && cb(data);
         });
     }
     emit(event: string, data: any = {}) {
-        PL.ws_handler.client?.send(JSON.stringify({
-            name: event,
-            data,
-        }))
+        try {
+            PL.ws_handler.client?.send(JSON.stringify({
+                name: event,
+                data,
+            }))
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
     remove(origin_id: string) {
         for (const event in this.listeners) {
